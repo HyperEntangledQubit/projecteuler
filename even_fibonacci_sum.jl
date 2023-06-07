@@ -56,6 +56,8 @@ them (use some kind of LRU algorithm).
 
 Significantly large numbers will need a different type to prevent the integer
 overflow from occurring.
+
+Not sure how to handle that in julia...
 """
 function fibonacci(n)
     if n <= 0
@@ -90,7 +92,6 @@ for i in 1:34
     end
 
     if fib % 2 == 0
-        # Only need values under 4_000_000
         global sum_even_fibonacci += fib
         println("Fibonacci number $i is $fib")
     end
