@@ -5,13 +5,16 @@
 
 What is the largest prime factor of 60085147543?
 
+Using Pollard Rho (modified version) to solve.
+
+TODO: Implement a multithreaded solution using Quadratic Sieve
 =#
 
 """
     is_prime(n)
 
 # Description
-Method to check if a given number is prime
+Primality test to find all prime numbers up to sqrt(n)
 
 # Example
 ```jldoctest
@@ -35,6 +38,11 @@ function is_prime(n)
 end
 
 """
+    gcd(x, y)
+
+# Description
+Recursive method to find the greatest common divisor of two numbers.
+
 """
 function gcd(x, y)
     if x == 0
@@ -45,38 +53,34 @@ function gcd(x, y)
 end
 
 """
-    largest_prime_factor(n)
+    prime_factors(n)
 
 # Description
-Iterative method to return largest prime factor of n
+Returns a list of prime factors using modified Pollard Rho algorithm.
+
+Method searchs all prime values up to n
 
 # Example
 ``` jldoctest
-julia> largest_prime_factor(5)
-5
+julia> prime_factor(5)
+[1, 5]
 ```
-# Warning
-This method is slow... since we are using rather large numbers here.
 
-TODO Redo this method using multithreading
 """
-function largest_prime_factor(n)
+function prime_factors(n)
     prime_factors = Int64[]
-    # Only need to check up to the sqrt of n
-    for i in 1:trunc(Int64, sqrt(n))
+    for i in 1:trunc(Int64, n)
         if is_prime(i)
             ggcd = gcd(i, n)
             if ggcd != 1
-                # println(ggcd)
                 push!(prime_factors, ggcd)
             end
         end
     end
 
-    return maximum(prime_factors)
+    return prime_factors
 end
 
-res = largest_prime_factor(600851475143)
-# res = is_prime(600851475143)
-println("IS this value prime $res")
-# println("Largest prime factor of 600851475143 is $res")
+# res = maximum(prime_factors(600851475143))
+res = maximum(prime_factors(498709759283475))
+println("Largest prime factor of 600851475143 is $res")
