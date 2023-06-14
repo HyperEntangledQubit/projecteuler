@@ -1,5 +1,7 @@
 #!/usr/bin/env julia
 
+using Primes
+
 #= Problem Statement
 #
 
@@ -21,49 +23,49 @@ true
 
 """
 function is_prime(n)
-    if n == 0
+    if n <= 1
         return false
     end
 
-    if n == 1 || n == 2
-        return true
-    end
-
-    for i in 2:n-1
+    upper_bound = sqrt(n)
+    for i in 2:upper_bound
         if n % i == 0
             return false
-        else
-            return true
         end
     end
+
+    return true
 end
 
 """
     largest_prime_factor(n)
 
 # Description
-Finds all primes up to n then returns the largest prime factor
+Iterative method to return largest prime factor of n
 
 # Example
 ``` jldoctest
 julia> largest_prime_factor(5)
 5
 ```
+# Warning
+This method is slow... since we are using rather large numbers here.
 
+TODO Redo this method using multithreading
 """
 function largest_prime_factor(n)
-    # Don't need this array here
-    # Only need the largest out of the list so we can do a comparison here
-    prime_factors = Int64[]
-    for i in 1:n
+    largest_prime = 0
+    # Only need to check up to the sqrt of n
+    for i in reverse(1:trunc(Int64, sqrt(n)))
         if is_prime(i)
-            append!(prime_factors, i)
+            println(i)
         end
     end
 
-    return maximum(prime_factors)
+    return largest_prime
 end
 
-res = largest_prime_factor(60085147543)
-
-println("Largest prime factor of 6008517543 is $res")
+res = largest_prime_factor(600851475143)
+# res = is_prime(600851475143)
+println("IS this value prime $res")
+# println("Largest prime factor of 600851475143 is $res")
