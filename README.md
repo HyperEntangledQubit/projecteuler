@@ -1,6 +1,6 @@
 # Project Euler solutions
 
-Solutions to Project Euler problems
+Solutions to Project Euler problems from scratch!
 
 
 - [ ] Include unit testing and project build automation

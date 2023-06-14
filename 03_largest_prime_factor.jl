@@ -1,7 +1,6 @@
 #!/usr/bin/env julia
 
 #= Problem Statement
-#
 
 What is the largest prime factor of 60085147543?
 
