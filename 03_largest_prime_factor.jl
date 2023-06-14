@@ -4,8 +4,7 @@
 
 What is the largest prime factor of 60085147543?
 
-Using Pollard Rho (modified version) to solve.
-
+TODO: Implement Pollard Rho method
 TODO: Implement a multithreaded solution using Quadratic Sieve
 =#
 
@@ -55,7 +54,7 @@ end
     prime_factors(n)
 
 # Description
-Returns a list of prime factors using modified Pollard Rho algorithm.
+Returns a list of prime factors using trial division.
 
 Method searchs all prime values up to n
 
@@ -64,22 +63,21 @@ Method searchs all prime values up to n
 julia> prime_factor(5)
 [1, 5]
 ```
-
+# Warning
+Large numbers method will eventually return the corect answer but, will take a
+while. Utilize alternate algorithms to find large prime factorization
 """
 function prime_factors(n)
     prime_factors = Int64[]
     for i in 1:trunc(Int64, n)
-        if is_prime(i)
-            ggcd = gcd(i, n)
-            if ggcd != 1
-                push!(prime_factors, ggcd)
-            end
+        ggcd = gcd(i, n)
+        if is_prime(i) && ggcd != 1
+            push!(prime_factors, ggcd)
         end
     end
 
     return prime_factors
 end
 
-# res = maximum(prime_factors(600851475143))
-res = maximum(prime_factors(498709759283475))
+res = maximum(prime_factors(600851475143))
 println("Largest prime factor of 600851475143 is $res")
