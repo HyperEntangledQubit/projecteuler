@@ -69,7 +69,7 @@ while. Utilize alternate algorithms to find large prime factorization
 """
 function prime_factors(n)
     prime_factors = Int64[]
-    for i in 1:trunc(Int64, n)
+    for i in 1:trunc(Int64, sqrt(n))
         ggcd = gcd(i, n)
         if is_prime(i) && ggcd != 1
             push!(prime_factors, ggcd)
