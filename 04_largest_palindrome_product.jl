@@ -1,4 +1,4 @@
-#!/usr/bin/end julia
+#!/usr/bin/env julia
 
 #= Problem Statement
 
@@ -22,10 +22,16 @@ function is_palindrome(n)
     return false
 end
 
-for i in 1:999
-    result = is_palindrome(i)
+# This is gross... Has to be a better way to do tbis
+max = 0
+for i in 1:999, j in 1:999
+    result = is_palindrome(i * j)
     if result
-        println("$i is a palindrome: $result")
+        palindrome = i * j
+        if palindrome >= max
+            global max = palindrome
+        end
     end
 end
 
+println("The largest two digit palindrome is $max")
